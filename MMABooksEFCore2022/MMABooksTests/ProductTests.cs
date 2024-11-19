@@ -35,9 +35,9 @@ namespace MMABooksTests
         [Test]
         public void GetByPrimaryKeyTest()
         {
-            p = dbContext.Products.Find(1);
+            p = dbContext.Products.Find("A4CS");
             Assert.IsNotNull(p);
-            Assert.AreEqual(1, p.ProductCode);
+            Assert.AreEqual("A4CS", p.ProductCode);
             Console.WriteLine(p);
         }
 
