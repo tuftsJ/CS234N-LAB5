@@ -68,19 +68,33 @@ namespace MMABooksTests
         [Test]
         public void DeleteTest()
         {
-
+            p = new Products();
+            p = dbContext.Products.Find("ZZZZ");
+            dbContext.Products.Remove(p);
+            dbContext.SaveChanges();
+            Assert.IsNull(dbContext.Products.Find("ZZZZ"));
         }
 
         [Test]
         public void CreateTest()
         {
-
+            p = new Products();
+            p.ProductCode = "ZZZZ";
+            p.Description = "Sleepy's code book";
+            dbContext.Products.Add(p);
+            dbContext.SaveChanges();
+            Assert.IsNotNull(dbContext.Products.Find("ZZZZ"));
         }
 
         [Test]
         public void UpdateTest()
         {
-
+            p = dbContext.Products.Find("ZZZZ");
+            p.Description = "Sleepy's Vol.2";
+            dbContext.Products.Update(p);
+            dbContext.SaveChanges();
+            p = dbContext.Products.Find("ZZZZ");
+            Assert.AreEqual("Sleepy's Vol.2", p.Description);
         }
 
         public void PrintAll(List<Products> products)

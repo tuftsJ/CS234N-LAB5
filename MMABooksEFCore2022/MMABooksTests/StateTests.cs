@@ -64,15 +64,21 @@ namespace MMABooksTests
         [Test]
         public void DeleteTest()
         {
-            s = dbContext.States.Find("HI");
+            s = dbContext.States.Find("ZZ");
             dbContext.States.Remove(s);
             dbContext.SaveChanges();
-            Assert.IsNull(dbContext.States.Find("HI"));
+            Assert.IsNull(dbContext.States.Find("ZZ"));
         }
 
         [Test]
         public void CreateTest()
         {
+            s = new State();
+            s.StateCode = "ZZ";
+            s.StateName = "ZZZ";
+            dbContext.States.Add(s);
+            dbContext.SaveChanges();
+            Assert.IsNotNull(dbContext.States.Find("ZZ"));
             /*s = dbContext.States
             dbContext.States.Create(s);
             dbContext.SaveChanges();
@@ -83,7 +89,12 @@ namespace MMABooksTests
         [Test]
         public void UpdateTest()
         {
-
+            s = dbContext.States.Find("ZZ");
+            s.StateName = "ZZZ";
+            dbContext.States.Update(s);
+            dbContext.SaveChanges();
+            s = dbContext.States.Find("ZZ");
+            Assert.AreEqual("ZZZ", s.StateName);
         }
 
         public void PrintAll(List<State> states)
